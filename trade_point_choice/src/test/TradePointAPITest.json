@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "53a2678d-de98-4190-9257-1a5e5e964117",
+		"name": "TradePointAPITest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CheckCorrectSorting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5e25375-3f0b-4f58-aae6-c40cc211080a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status is ok, response is json\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Sorting check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var temp_distance = jsonData[jsonData.length - 1].distance;\r",
+							"    var temp_time = jsonData[jsonData.length - 1].time;\r",
+							"    for (var index = jsonData.length - 2; index >= 0; index--) {\r",
+							"        pm.expect(jsonData[index].distance).to.be.within(0, temp_distance);\r",
+							"        temp_distance = jsonData[index].distance;\r",
+							"        pm.expect(jsonData[index].time).to.be.within(0, temp_time);\r",
+							"        temp_time = jsonData[index].time;\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "longitude",
+							"value": "56.235142",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "39.553861",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/m/pickPoint/nearest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"m",
+						"pickPoint",
+						"nearest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckFields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b12286a-9438-4746-9bab-65dbeb959bd4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status is ok, response is json\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    for (var index = 0; index < jsonData.length; index++) {\r",
+							"        pm.expect(jsonData[index].tradePoint.id).not.eql(0);\r",
+							"        pm.expect(jsonData[index].tradePoint.address).not.eql(null);\r",
+							"        pm.expect(jsonData[index].tradePoint.latitude).to.be.below(180);\r",
+							"        pm.expect(jsonData[index].tradePoint.longitude).to.be.below(180);\r",
+							"        pm.expect(jsonData[index].time).to.be.above(0);\r",
+							"        pm.expect(jsonData[index].distance).to.be.above(0);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "longitude",
+							"value": "56.235142",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "39.553861",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/m/pickPoint/nearest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"m",
+						"pickPoint",
+						"nearest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckFormat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4549b8b-cddc-4f3a-93b4-dd55fee3b4cd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status is ok, response is json\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response data format is correct\", function () {\r",
+							"    var jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData[0]).to.be.an('object')\r",
+							"    pm.expect(jsonData[0].tradePoint).to.be.an('object')\r",
+							"\r",
+							"    pm.expect(jsonData[0].tradePoint.id).to.be.an('number')\r",
+							"    pm.expect(jsonData[0].tradePoint.address).to.be.a('string')\r",
+							"    pm.expect(jsonData[0].tradePoint.latitude).to.be.a('number')\r",
+							"    pm.expect(jsonData[0].tradePoint.longitude).to.be.a('number')\r",
+							"\r",
+							"    pm.expect(jsonData[0].time).to.be.a('number')\r",
+							"    pm.expect(jsonData[0].distance).to.be.a('number')\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "longitude",
+							"value": "56.235142",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "39.553861",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/m/pickPoint/nearest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"m",
+						"pickPoint",
+						"nearest"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
