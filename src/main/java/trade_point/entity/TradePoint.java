@@ -2,7 +2,9 @@ package trade_point.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import trade_point.util.Views;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Entity
 @Table(name = "TradePoint")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TradePoint {
 
