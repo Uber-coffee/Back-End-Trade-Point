@@ -3,7 +3,7 @@
   connection: local
   become: yes
   vars:
-    service_name: 'trade_point'
+    service_name: 'trade-point'
 
   vars_files: /home/secrets/dev_postgres_password
   tasks:

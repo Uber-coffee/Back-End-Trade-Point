@@ -30,11 +30,11 @@ node {
 		
 		if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'master') {
 			stage('Build docker image') {
-				docker.build("trade_point:${env.BUILD_ID}")
+				docker.build("trade-point:${env.BUILD_ID}")
 			}
 			
 			stage('Build success notification') {
-				telegram_msg("Build ${env.BRANCH_NAME} finished, image: trade_point: ${env.BUILD_ID}")
+				telegram_msg("Build ${env.BRANCH_NAME} finished, image: trade-point: ${env.BUILD_ID}")
 			}
 		      
 			stage('Push to registry and deploy (dev)') {
@@ -61,7 +61,7 @@ node {
 
 def telegram_msg(String msg) {
     telegramSend(
-            message: "Tradepoint service: " + msg,
+            message: "Trade-point service: " + msg,
             chatId: -1001336690990
     )
 }
