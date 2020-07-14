@@ -21,7 +21,7 @@ import java.util.List;
 
 @Api(value = "This controller allow to edit trade point")
 @RestController
-@RequestMapping(value = "/w/user/manager/trade-points")
+@RequestMapping(value = "/w/user/trade-points/")
 public class EditTradePointController {
     private final EditTradePointService editTradePointService;
 
@@ -43,11 +43,21 @@ public class EditTradePointController {
     @SwaggerMethodToDocument
     @GetMapping("{id}")
 //    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
-    @ApiOperation(value = "To show seller to another trade point")
+    @ApiOperation(value = "To show seller to chosen trade point")
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
     public List<User> showAllSellersOnThisTradePoint(@PathVariable("id") TradePoint tradePoint) {
         return new ArrayList<>(tradePoint.getUsers());
+    }
+
+
+    @SwaggerMethodToDocument
+    @PostMapping("del/{id}")
+//    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
+    @ApiOperation(value = "To delete seller of chosen trade point")
+    public ResponseEntity<Object> deleteSellerTradePoint(@RequestBody EditSellerRequest editSellerRequest,
+                                                         @PathVariable("id") TradePoint tradePoint) {
+        return editTradePointService.deleteSeller(editSellerRequest, tradePoint);
     }
 
 

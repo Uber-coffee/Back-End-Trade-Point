@@ -32,9 +32,7 @@ public class EditTradePointService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<Object> addSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint)
-            throws UserNotFoundException
-    {
+    public ResponseEntity<Object> addSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
         if (!userRepository.existsById(editSellerRequest.getIdSeller())) {
             return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
         }
@@ -52,6 +50,28 @@ public class EditTradePointService {
         tradePointRepository.save(tradePoint);
 
         log.debug("Seller ({}) add to trade point ({})", user.getFirstName(), tradePoint.getName());
+
+        return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> deleteSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
+        if (!userRepository.existsById(editSellerRequest.getIdSeller())) {
+            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+        }
+
+        User user = userRepository.findById(editSellerRequest.getIdSeller()).get();
+
+        if (!user.getRoles().contains(Role.ROLE_SELLER)) {
+            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+        }
+
+        user.getTradePoint().remove(tradePoint);
+        tradePoint.getUsers().remove(user);
+
+        userRepository.save(user);
+        tradePointRepository.save(tradePoint);
+
+        log.debug("Seller ({}) delete of trade point ({})", user.getFirstName(), tradePoint.getName());
 
         return new ResponseEntity<>(user.getId(), HttpStatus.OK);
     }
