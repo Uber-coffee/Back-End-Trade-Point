@@ -17,7 +17,6 @@ import java.util.List;
 
 @Api(value = "This controller allow to add new trade point")
 @RestController
-@RequestMapping(value = "/w/user/manager/")
 public class TradePointController {
     private final TradePointService tradePointService;
 
@@ -27,15 +26,15 @@ public class TradePointController {
     }
 
     @SwaggerMethodToDocument
-    @PostMapping("/")
+    @PostMapping("/w/user/trade-points")
 //    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
     @ApiOperation(value = "To create new Trade Point")
-    public boolean create(@RequestBody TradePointRequest tradePoint) {
-        return tradePointService.create(tradePoint) != null;
+    public ResponseEntity<Object> create(@RequestParam TradePointRequest tradePoint) {
+        return tradePointService.create(tradePoint);
     }
 
     @SwaggerMethodToDocument
-    @GetMapping("/trade-points")
+    @GetMapping("/w/user/trade-points")
     @ApiOperation(value = "To show all Trade Points")
     @JsonView(Views.Compact.class)
     public List<TradePoint> showAllTradePoints(){
@@ -43,11 +42,19 @@ public class TradePointController {
     }
 
     @SwaggerMethodToDocument
-    @GetMapping("/m/tradePoint/nearest")
+    @GetMapping("/m/trade-points/nearest")
     public ResponseEntity<Object> getNearestPickPoint(@RequestParam Double latitude, @RequestParam Double longitude ) {
         if (latitude == null || longitude == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(tradePointService.getListNearestPickPoint(latitude, longitude), HttpStatus.OK);
     }
+
+    @SwaggerMethodToDocument
+    @PostMapping("/w/user/trade-points/del")
+    @ApiOperation(value = "Delete trade point")
+    public ResponseEntity<Object> delete(@RequestParam Long id) {
+        return tradePointService.delete(id);
+    }
+
 }

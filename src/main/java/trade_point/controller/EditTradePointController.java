@@ -47,8 +47,7 @@ public class EditTradePointController {
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
     public List<User> showAllSellersOnThisTradePoint(@PathVariable("id") TradePoint tradePoint) {
-        ArrayList<User> users = new ArrayList<>(tradePoint.getUsers());
-        return users;
+        return new ArrayList<>(tradePoint.getUsers());
     }
 
 

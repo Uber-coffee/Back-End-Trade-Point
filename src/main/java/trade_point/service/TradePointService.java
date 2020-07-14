@@ -1,6 +1,8 @@
 package trade_point.service;
 
 import org.apache.commons.math3.util.Precision;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import trade_point.data.TradePointDTO;
 import trade_point.entity.TradePoint;
@@ -19,9 +21,9 @@ public class TradePointService {
         this.tradePointRepository = tradePointRepository;
     }
 
-    public TradePoint create(TradePointRequest tradePoint) {
+    public ResponseEntity<Object> create(TradePointRequest tradePoint) {
         if (tradePointRepository.existsByName(tradePoint.getName())) {
-            return null;
+            return new ResponseEntity<>(-1, HttpStatus.FORBIDDEN);
         } else {
             TradePoint point = new TradePoint();
 
@@ -32,7 +34,7 @@ public class TradePointService {
             point.setIsActive(true);
 
             tradePointRepository.save(point);
-             return point;
+            return new ResponseEntity<>(point.getId(), HttpStatus.OK);
         }
     }
 
@@ -73,5 +75,13 @@ public class TradePointService {
 
         result.sort(Comparator.comparing(TradePointDTO::getDistance));
         return result;
+    }
+
+    public ResponseEntity<Object> delete (Long id) {
+        if (!tradePointRepository.existsById(id)) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+        tradePointRepository.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

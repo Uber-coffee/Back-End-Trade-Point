@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trade_point.entity.Role;
 import trade_point.payload.EditSellerRequest;
 import trade_point.entity.TradePoint;
 import trade_point.entity.User;
@@ -35,10 +36,14 @@ public class EditTradePointService {
             throws UserNotFoundException
     {
         if (!userRepository.existsById(editSellerRequest.getIdSeller())) {
-            throw new UserNotFoundException();
+            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
         }
 
         User user = userRepository.findById(editSellerRequest.getIdSeller()).get();
+
+        if (!user.getRoles().contains(Role.ROLE_SELLER)) {
+            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+        }
 
         user.getTradePoint().add(tradePoint);
         tradePoint.getUsers().add(user);
@@ -48,6 +53,6 @@ public class EditTradePointService {
 
         log.debug("Seller ({}) add to trade point ({})", user.getFirstName(), tradePoint.getName());
 
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        return new ResponseEntity<>(user.getId(), HttpStatus.OK);
     }
 }
