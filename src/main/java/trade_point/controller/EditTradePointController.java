@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trade_point.entity.TradePoint;
 import trade_point.entity.User;
-import trade_point.exception.UserNotFoundException;
 import trade_point.payload.EditSellerRequest;
 import trade_point.service.EditTradePointService;
 import trade_point.config.swagger2.SwaggerMethodToDocument;
@@ -31,13 +30,23 @@ public class EditTradePointController {
     }
 
     @SwaggerMethodToDocument
-    @PostMapping("{id}")
+    @GetMapping("{id}/valid")
+//    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
+    @ApiOperation(value = "Return user params")
+    @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
+    @JsonView(Views.Compact.class)
+    public ResponseEntity<Object> validateSeller(@RequestBody EditSellerRequest editSellerRequest,
+                                                 @PathVariable("id") TradePoint tradePoint) {
+        return editTradePointService.validSeller(editSellerRequest, tradePoint);
+    }
+
+    @SwaggerMethodToDocument
+    @PostMapping("{id}/add")
 //    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
     @ApiOperation(value = "To add a seller to another trade point")
-    public ResponseEntity<Object> addSellerTradePoint(@RequestBody EditSellerRequest editSellerRequest,
-                                                      @PathVariable("id") TradePoint tradePoint)
-            throws UserNotFoundException {
-        return editTradePointService.addSeller(editSellerRequest, tradePoint);
+    public ResponseEntity<Object> addSeller(@RequestParam Long idSeller,
+                                            @PathVariable("id") TradePoint tradePoint) {
+        return editTradePointService.addSeller(idSeller, tradePoint);
     }
 
     @SwaggerMethodToDocument
@@ -55,9 +64,9 @@ public class EditTradePointController {
     @PostMapping("del/{id}")
 //    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
     @ApiOperation(value = "To delete seller of chosen trade point")
-    public ResponseEntity<Object> deleteSellerTradePoint(@RequestBody EditSellerRequest editSellerRequest,
+    public ResponseEntity<Object> deleteSellerTradePoint(@RequestParam Long id,
                                                          @PathVariable("id") TradePoint tradePoint) {
-        return editTradePointService.deleteSeller(editSellerRequest, tradePoint);
+        return editTradePointService.deleteSeller(id, tradePoint);
     }
 
 

@@ -32,15 +32,29 @@ public class EditTradePointService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<Object> addSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
-        if (!userRepository.existsById(editSellerRequest.getIdSeller())) {
-            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> validSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
+        if (!userRepository.existsByEmail(editSellerRequest.getEmail())) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
 
-        User user = userRepository.findById(editSellerRequest.getIdSeller()).get();
+        User user = userRepository.findByEmail(editSellerRequest.getEmail());
 
         if (!user.getRoles().contains(Role.ROLE_SELLER)) {
-            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> addSeller(Long idSeller, TradePoint tradePoint) {
+        if (!userRepository.existsById(idSeller)) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+
+        User user = userRepository.findById(idSeller).get();
+
+        if (!user.getRoles().contains(Role.ROLE_SELLER)) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
 
         user.getTradePoint().add(tradePoint);
@@ -54,12 +68,12 @@ public class EditTradePointService {
         return new ResponseEntity<>(user.getId(), HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> deleteSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
-        if (!userRepository.existsById(editSellerRequest.getIdSeller())) {
-            return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> deleteSeller(Long id, TradePoint tradePoint) {
+        if (!userRepository.existsById(id)) {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
 
-        User user = userRepository.findById(editSellerRequest.getIdSeller()).get();
+        User user = userRepository.findById(id).get();
 
         if (!user.getRoles().contains(Role.ROLE_SELLER)) {
             return new ResponseEntity<>("-1", HttpStatus.FORBIDDEN);

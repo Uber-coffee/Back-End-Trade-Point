@@ -80,7 +80,8 @@ public class TradePointService {
         if (!tradePointRepository.existsById(id)) {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
+        TradePoint tp = tradePointRepository.findById(id).get();
         tradePointRepository.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(tp, HttpStatus.OK);
     }
 }

@@ -53,7 +53,8 @@ public class TradePointController {
     @SwaggerMethodToDocument
     @PostMapping("/w/user/trade-points/del")
     @ApiOperation(value = "Delete trade point")
-    public ResponseEntity<Object> delete(@RequestBody Long id) {
+    @JsonView(Views.Compact.class)
+    public ResponseEntity<Object> delete(@RequestParam Long id) {
         return tradePointService.delete(id);
     }
 
