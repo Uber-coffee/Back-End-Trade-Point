@@ -29,7 +29,7 @@ public class TradePointController {
     @PostMapping("/w/user/trade-points")
 //    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
     @ApiOperation(value = "To create new Trade Point")
-    public ResponseEntity<Object> create(@RequestParam TradePointRequest tradePoint) {
+    public ResponseEntity<Object> create(@RequestBody TradePointRequest tradePoint) {
         return tradePointService.create(tradePoint);
     }
 
@@ -53,7 +53,7 @@ public class TradePointController {
     @SwaggerMethodToDocument
     @PostMapping("/w/user/trade-points/del")
     @ApiOperation(value = "Delete trade point")
-    public ResponseEntity<Object> delete(@RequestParam Long id) {
+    public ResponseEntity<Object> delete(@RequestBody Long id) {
         return tradePointService.delete(id);
     }
 

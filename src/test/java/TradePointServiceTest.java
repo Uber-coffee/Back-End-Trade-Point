@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import trade_point.entity.TradePoint;
 import trade_point.exception.TradePointNotFoundException;
 import trade_point.payload.TradePointRequest;
@@ -49,7 +50,7 @@ class TradePointServiceTest {
         tradePoint.setLatitude(29.99);
         tradePoint.setName(name);
 
-        TradePoint tp = tradePointService.create(tradePoint);
+        ResponseEntity<Object> tp = tradePointService.create(tradePoint);
 
         boolean isTradePointCreated = tp != null;
 

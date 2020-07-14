@@ -26,7 +26,6 @@ public class TradePointService {
             return new ResponseEntity<>(-1, HttpStatus.FORBIDDEN);
         } else {
             TradePoint point = new TradePoint();
-
             point.setAddress(tradePoint.getAddress());
             point.setLatitude(tradePoint.getLatitude());
             point.setLongitude(tradePoint.getLongitude());
