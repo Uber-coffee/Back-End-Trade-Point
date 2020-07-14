@@ -19,6 +19,7 @@ node {
         
 		docker.image('maven:3.6.3-openjdk-11').inside() {
 			stage('Run tests') {
+				sh 'ls -la'
 				sh 'mvn test'
 			}
 
