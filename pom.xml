@@ -73,12 +73,6 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
         <dependency>
             <groupId>joda-time</groupId>
@@ -127,9 +121,14 @@
         </dependency>
 
         <dependency>
-            <groupId>ru.epam.uber-coffee</groupId>
-            <artifactId>auth</artifactId>
-            <version>0.0.1</version>
+            <groupId>com.ubercoffee</groupId>
+            <artifactId>auth-starter</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
     </dependencies>
 
