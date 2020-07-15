@@ -23,6 +23,13 @@
         <spring.version>Hoxton.SR4</spring.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>repsy</id>
+            <url>https://repo.repsy.io/mvn/kotique/default</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -117,6 +124,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-math3</artifactId>
             <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.epam.uber-coffee</groupId>
+            <artifactId>auth</artifactId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 

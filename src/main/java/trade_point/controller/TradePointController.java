@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import trade_point.config.swagger2.SwaggerMethodToDocument;
 import trade_point.entity.TradePoint;
@@ -27,7 +28,7 @@ public class TradePointController {
 
     @SwaggerMethodToDocument
     @PostMapping("/w/user/trade-points")
-//    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
+    @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "To create new Trade Point")
     public ResponseEntity<Object> create(@RequestBody TradePointRequest tradePoint) {
         return tradePointService.create(tradePoint);
@@ -52,6 +53,7 @@ public class TradePointController {
 
     @SwaggerMethodToDocument
     @PostMapping("/w/user/trade-points/del")
+    @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Delete trade point")
     @JsonView(Views.Compact.class)
     public ResponseEntity<Object> delete(@RequestParam Long id) {
