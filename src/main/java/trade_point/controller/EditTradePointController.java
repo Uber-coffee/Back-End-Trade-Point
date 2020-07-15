@@ -32,7 +32,7 @@ public class EditTradePointController {
 
     @SwaggerMethodToDocument
     @GetMapping("{id}/valid")
-    @PreAuthorize(value = "hasRole('ROLE_MANAGER')")
+    @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Return user params")
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
