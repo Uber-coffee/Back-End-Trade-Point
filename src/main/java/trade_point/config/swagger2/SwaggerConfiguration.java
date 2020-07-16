@@ -19,6 +19,7 @@ public class SwaggerConfiguration{
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .host("ecse005008ef.epam.com:8080/api/trade-point")
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(SwaggerMethodToDocument.class))
                 .paths(PathSelectors.any())
