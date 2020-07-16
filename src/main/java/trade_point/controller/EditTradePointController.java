@@ -31,41 +31,41 @@ public class EditTradePointController {
     }
 
     @SwaggerMethodToDocument
-    @GetMapping("{id}/valid")
+    @GetMapping("{idTradePoint}/valid")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Return user params")
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
     public ResponseEntity<Object> validateSeller(@RequestBody EditSellerRequest editSellerRequest,
-                                                 @PathVariable("id") TradePoint tradePoint) {
+                                                 @PathVariable("idTradePoint") TradePoint tradePoint) {
         return editTradePointService.validSeller(editSellerRequest, tradePoint);
     }
 
     @SwaggerMethodToDocument
-    @PostMapping("{id}/add")
+    @PostMapping("{idTradePoint}/add")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "To add a seller to another trade point")
     public ResponseEntity<Object> addSeller(@RequestParam Long idSeller,
-                                            @PathVariable("id") TradePoint tradePoint) {
+                                            @PathVariable("idTradePoint") TradePoint tradePoint) {
         return editTradePointService.addSeller(idSeller, tradePoint);
     }
 
     @SwaggerMethodToDocument
-    @GetMapping("{id}")
+    @GetMapping("{idTradePoint}")
     @ApiOperation(value = "To show seller to chosen trade point")
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
-    public List<User> showAllSellersOnThisTradePoint(@PathVariable("id") TradePoint tradePoint) {
+    public List<User> showAllSellersOnThisTradePoint(@PathVariable("idTradePoint") TradePoint tradePoint) {
         return new ArrayList<>(tradePoint.getUsers());
     }
 
 
     @SwaggerMethodToDocument
-    @PostMapping("del/{id}")
+    @PostMapping("del/{idTradePoint}")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "To delete seller of chosen trade point")
     public ResponseEntity<Object> deleteSellerTradePoint(@RequestParam Long id,
-                                                         @PathVariable("id") TradePoint tradePoint) {
+                                                         @PathVariable("idTradePoint") TradePoint tradePoint) {
         return editTradePointService.deleteSeller(id, tradePoint);
     }
 
