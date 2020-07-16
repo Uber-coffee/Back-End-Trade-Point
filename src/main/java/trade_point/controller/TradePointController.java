@@ -3,6 +3,7 @@ package trade_point.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,10 @@ public class TradePointController {
 
     @SwaggerMethodToDocument
     @GetMapping("/w/user/trade-points")
-    @ApiOperation(value = "To show all Trade Points")
+    @ApiOperation(
+            value = "To show all Trade Points",
+            authorizations = @Authorization(value="jwtToken")
+    )
     @JsonView(Views.Compact.class)
     public List<TradePoint> showAllTradePoints(){
         return tradePointService.allTradePointService();
@@ -44,6 +48,10 @@ public class TradePointController {
 
     @SwaggerMethodToDocument
     @GetMapping("/m/trade-points/nearest")
+    @ApiOperation(
+            value = "Get nearest pick point",
+            authorizations = @Authorization(value="jwtToken")
+    )
     public ResponseEntity<Object> getNearestPickPoint(@RequestParam Double latitude, @RequestParam Double longitude ) {
         if (latitude == null || longitude == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -54,7 +62,10 @@ public class TradePointController {
     @SwaggerMethodToDocument
     @PostMapping("/w/user/trade-points/del")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "Delete trade point")
+    @ApiOperation(
+            value = "Delete trade point",
+            authorizations = @Authorization(value="jwtToken")
+    )
     @JsonView(Views.Compact.class)
     public ResponseEntity<Object> delete(@RequestParam Long id) {
         return tradePointService.delete(id);

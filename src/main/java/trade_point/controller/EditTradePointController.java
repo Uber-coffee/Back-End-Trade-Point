@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +34,10 @@ public class EditTradePointController {
     @SwaggerMethodToDocument
     @GetMapping("{idTradePoint}/valid")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "Return user params")
+    @ApiOperation(
+            value = "Return user params",
+            authorizations = @Authorization(value="jwtToken")
+    )
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
     public ResponseEntity<Object> validateSeller(@RequestBody EditSellerRequest editSellerRequest,
@@ -44,7 +48,10 @@ public class EditTradePointController {
     @SwaggerMethodToDocument
     @PostMapping("{idTradePoint}/add")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "To add a seller to another trade point")
+    @ApiOperation(
+            value = "To add a seller to another trade point",
+            authorizations = @Authorization(value="jwtToken")
+    )
     public ResponseEntity<Object> addSeller(@RequestParam Long idSeller,
                                             @PathVariable("idTradePoint") TradePoint tradePoint) {
         return editTradePointService.addSeller(idSeller, tradePoint);
@@ -52,7 +59,10 @@ public class EditTradePointController {
 
     @SwaggerMethodToDocument
     @GetMapping("{idTradePoint}")
-    @ApiOperation(value = "To show seller to chosen trade point")
+    @ApiOperation(
+            value = "To show seller to chosen trade point",
+            authorizations = @Authorization(value="jwtToken")
+    )
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
     public List<User> showAllSellersOnThisTradePoint(@PathVariable("idTradePoint") TradePoint tradePoint) {
@@ -63,7 +73,10 @@ public class EditTradePointController {
     @SwaggerMethodToDocument
     @PostMapping("del/{idTradePoint}")
     @PreAuthorize(value = "hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "To delete seller of chosen trade point")
+    @ApiOperation(
+            value = "To delete seller of chosen trade point",
+            authorizations = @Authorization(value="jwtToken")
+    )
     public ResponseEntity<Object> deleteSellerTradePoint(@RequestParam Long id,
                                                          @PathVariable("idTradePoint") TradePoint tradePoint) {
         return editTradePointService.deleteSeller(id, tradePoint);
