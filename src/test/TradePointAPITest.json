@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "53a2678d-de98-4190-9257-1a5e5e964117",
-		"name": "TradePointAPITest",
+		"name": "TradePointAPITests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -63,7 +63,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
 									"type": "string"
 								}
 							]
@@ -129,7 +129,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
 									"type": "string"
 								}
 							]
@@ -138,7 +138,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"id\": 9,\r\n        \"name\": \"Uber-9\",\r\n        \"address\": \"spb9\",\r\n        \"latitude\": 22.169,\r\n        \"longitude\": 33.269,\r\n        \"isActive\": true\r\n    }",
+							"raw": "    {\r\n        \"id\": 111,\r\n        \"name\": \"Uber-111\",\r\n        \"address\": \"spb111\",\r\n        \"latitude\": 22.16111,\r\n        \"longitude\": 33.26111,\r\n        \"isActive\": true\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -183,10 +183,10 @@
 									"    var jsonData = pm.response.json();\r",
 									"    var id = Number(postman.getEnvironmentVariable(\"id\"));\r",
 									"    pm.expect(jsonData.id).eq(id);\r",
-									"    pm.expect(jsonData.name).eq(\"Uber-9\");\r",
-									"    pm.expect(jsonData.address).eq(\"spb9\");\r",
-									"    pm.expect(jsonData.latitude).eq(22.169);\r",
-									"    pm.expect(jsonData.longitude).eq(33.269);\r",
+									"    pm.expect(jsonData.name).eq(\"Uber-111\");\r",
+									"    pm.expect(jsonData.address).eq(\"spb111\");\r",
+									"    pm.expect(jsonData.latitude).eq(22.16111);\r",
+									"    pm.expect(jsonData.longitude).eq(33.26111);\r",
 									"    pm.expect(jsonData.isActive).eq(true);\r",
 									"});"
 								],
@@ -200,7 +200,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
 									"type": "string"
 								}
 							]
@@ -238,22 +238,97 @@
 					"response": []
 				},
 				{
-					"name": "test1",
+					"name": "CheckGettingSortingList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e83b7ff5-d77e-4214-bf67-6f99c2f47350",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Sorting check\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var temp_distance = jsonData[jsonData.length - 1].distance;\r",
+									"    var temp_time = jsonData[jsonData.length - 1].time;\r",
+									"    for (var index = jsonData.length - 2; index >= 0; index--) {\r",
+									"        pm.expect(jsonData[index].distance).to.be.within(0, temp_distance);\r",
+									"        temp_distance = jsonData[index].distance;\r",
+									"        pm.expect(jsonData[index].time).to.be.within(0, temp_time);\r",
+									"        temp_time = jsonData[index].time;\r",
+									"\t}\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"\tvar jsonData = pm.response.json()\r",
+									"\tpm.expect(jsonData[0]).to.be.an('object')\r",
+									"\tpm.expect(jsonData[0].tradePoint).to.be.an('object')\r",
+									"\r",
+									"\tpm.expect(jsonData[0].tradePoint.id).to.be.an('number')\r",
+									"    pm.expect(jsonData[0].tradePoint.name).to.be.a('string')\r",
+									"\tpm.expect(jsonData[0].tradePoint.address).to.be.a('string')\r",
+									"\tpm.expect(jsonData[0].tradePoint.latitude).to.be.a('number')\r",
+									"\tpm.expect(jsonData[0].tradePoint.longitude).to.be.a('number')\r",
+									"    pm.expect(jsonData[0].tradePoint.isActive).to.be.a('boolean')\r",
+									"    pm.expect(jsonData[0].time).to.be.a('number')\r",
+									"\tpm.expect(jsonData[0].distance).to.be.a('number')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MiIsImlhdCI6MTU5NDk4NDAyOCwiZXhwIjoxNTk0OTg3NjI4LCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl19.AfV8kFMrY037n6kLWYXHc1iNNcLvlL_Pgz2VEdHpouuZccviq8qh7kibOY2-M8OlpNi-JLpQEXMdbfDfYu3DnQ",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "latitude",
+									"value": "38.55346",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "56.23914",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}m/trade-points/nearest?latitude=12&longitude=12",
+							"raw": "{{url}}m/trade-points/nearest?latitude=33.221&longitude=22.131",
 							"host": [
 								"{{url}}m"
 							],
@@ -264,11 +339,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "12"
+									"value": "33.221"
 								},
 								{
 									"key": "longitude",
-									"value": "12"
+									"value": "22.131"
 								}
 							]
 						}
@@ -282,14 +357,279 @@
 			"name": "EditTradePointController",
 			"item": [
 				{
-					"name": "test",
+					"name": "CheckValidateUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f6d37b10-410c-4a3f-b44f-ad689134b059",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"\tvar jsonData = pm.response.json()\r",
+									"\tpm.expect(jsonData.id).to.be.a('number')\r",
+									"    pm.expect(jsonData.firstName).to.be.a('string')\r",
+									"    pm.expect(jsonData.lastName).to.be.a('string')\r",
+									"    pm.expect(jsonData.email).to.be.a('string')\r",
+									"    pm.expect(jsonData.phoneNumber).to.be.a('string')\r",
+									"    pm.expect(jsonData.registrationDate).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Checking the correct adding\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).eq(2);\r",
+									"    pm.expect(jsonData.firstName).eq(\"sellerName\");\r",
+									"    pm.expect(jsonData.lastName).eq(\"sellerLastName\");\r",
+									"    pm.expect(jsonData.email).eq(\"seller1@seller.ru\");\r",
+									"    pm.expect(jsonData.phoneNumber).eq(\"+71112223344\");\r",
+									"    pm.expect(jsonData.registrationDate).eq(\"2020-07-17T10:08:08.508Z\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTA4Mzg4LCJleHAiOjE1OTQ5MTE5ODgsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.f2ijWitSiBrKX3ibGpeQXtn13UpCMkL2V2RlAfMfbRdS8Y5qmBdQ8JO9JX7ZDSwj_Mqux1sswHXsi7tEEicyIQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/w/user/trade-points/1/valid?emailSeller=seller1@seller.ru",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"w",
+								"user",
+								"trade-points",
+								"1",
+								"valid"
+							],
+							"query": [
+								{
+									"key": "emailSeller",
+									"value": "seller1@seller.ru"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckAddSeller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "107e038a-5cae-4b78-be94-e1ee9fd92e3c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"\tvar jsonData = pm.response.json()\r",
+									"\tpm.expect(jsonData).eq(3)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/w/user/trade-points/1/add?idSeller=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"w",
+								"user",
+								"trade-points",
+								"1",
+								"add"
+							],
+							"query": [
+								{
+									"key": "idSeller",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckDeleteSeller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f764bae-5a40-42c5-adc3-bcb7f14569d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"\tvar jsonData = pm.response.json()\r",
+									"\tpm.expect(jsonData).eq(2)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/w/user/trade-points/del/1?id=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"w",
+								"user",
+								"trade-points",
+								"del",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckGettingSellersOnTradePoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6bf6475f-750e-46cd-96b2-dabd6b815412",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"\tvar jsonData = pm.response.json()\r",
+									"\tpm.expect(jsonData[0].id).to.be.a('number')\r",
+									"    pm.expect(jsonData[0].firstName).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].lastName).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].email).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].phoneNumber).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].registrationDate).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Checking the correct adding\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].id).eq(3);\r",
+									"    pm.expect(jsonData[0].firstName).eq(\"sellerName\");\r",
+									"    pm.expect(jsonData[0].lastName).eq(\"sellerLastName\");\r",
+									"    pm.expect(jsonData[0].email).eq(\"seller2@seller.ru\");\r",
+									"    pm.expect(jsonData[0].phoneNumber).eq(\"+71112223355\");\r",
+									"    pm.expect(jsonData[0].registrationDate).eq(\"2020-07-17T10:08:42.976Z\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTgyMDQwLCJleHAiOjE1OTQ5ODU2NDAsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.KhR3SCYFF5EsfdYmopCeizP3ms96AMNNsXPxpwroq6wBrHZIlprhT2KObsUsHoJXM7IH1ecklK_vKR67Pqb3sw",
 									"type": "string"
 								}
 							]
@@ -297,11 +637,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}w/user/trade-points/1",
+							"raw": "{{url}}/w/user/trade-points/1",
 							"host": [
-								"{{url}}w"
+								"{{url}}"
 							],
 							"path": [
+								"w",
 								"user",
 								"trade-points",
 								"1"
@@ -371,9 +712,6 @@
 		},
 		{
 			"name": "GetMobileToken",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -385,31 +723,32 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "latitude",
-							"value": "25.5555",
-							"type": "text"
-						},
-						{
-							"key": "longitude",
-							"value": "25.5555",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\r\n    \"phoneNumber\": \"912342121\",\r\n    \"sessionID\": \"1244121\",\r\n    \"verifyCode\": \"41eqweqe12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
-					"raw": "{{url}}m/trade-points/nearest",
+					"raw": "http://ecse005008ef.epam.com:8080/api/auth/m/auth/signup",
+					"protocol": "http",
 					"host": [
-						"{{url}}m"
+						"ecse005008ef",
+						"epam",
+						"com"
 					],
+					"port": "8080",
 					"path": [
-						"trade-points",
-						"nearest"
+						"api",
+						"auth",
+						"m",
+						"auth",
+						"signup"
 					]
 				}
 			},
