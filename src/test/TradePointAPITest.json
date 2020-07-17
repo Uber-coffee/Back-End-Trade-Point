@@ -6,143 +6,343 @@
 	},
 	"item": [
 		{
-			"name": "CheckCorrectSorting",
-			"event": [
+			"name": "TradePointController",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "d5e25375-3f0b-4f58-aae6-c40cc211080a",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status is ok, response is json\", function () {\r",
-							"    pm.response.to.be.ok;\r",
-							"    pm.response.to.be.json;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 1500ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Sorting check\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    var temp_distance = jsonData[jsonData.length - 1].distance;\r",
-							"    var temp_time = jsonData[jsonData.length - 1].time;\r",
-							"    for (var index = jsonData.length - 2; index >= 0; index--) {\r",
-							"        pm.expect(jsonData[index].distance).to.be.within(0, temp_distance);\r",
-							"        temp_distance = jsonData[index].distance;\r",
-							"        pm.expect(jsonData[index].time).to.be.within(0, temp_time);\r",
-							"        temp_time = jsonData[index].time;\r",
-							"    }\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
+					"name": "CheckGettingTradePointsList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1214aa0e-14ab-44c6-bc4a-4c82f536ebc9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data format is correct\", function () {\r",
+									"    var jsonData = pm.response.json()\r",
+									"    pm.expect(jsonData[0].id).to.be.an('number')\r",
+									"    pm.expect(jsonData[0].name).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].address).to.be.a('string')\r",
+									"    pm.expect(jsonData[0].latitude).to.be.a('number')\r",
+									"    pm.expect(jsonData[0].longitude).to.be.a('number')\r",
+									"    pm.expect(jsonData[0].isActive).to.be.a('boolean')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    for (var index = 0; index < jsonData.length; index++) {\r",
+									"        pm.expect(jsonData[index].id).not.eql(0);\r",
+									"        pm.expect(jsonData[index].name).not.eql(null);\r",
+									"        pm.expect(jsonData[index].address).not.eql(null);\r",
+									"        pm.expect(jsonData[index].latitude).to.be.below(180);\r",
+									"        pm.expect(jsonData[index].longitude).to.be.below(180);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}w/user/trade-points",
+							"host": [
+								"{{url}}w"
+							],
+							"path": [
+								"user",
+								"trade-points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckAddTradePoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2580a11-ae5d-475a-a0ca-49db9a17a5d0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Checking the correct response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).not.eql(-1);\r",
+									"    postman.setEnvironmentVariable(\"id\", jsonData);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 9,\r\n        \"name\": \"Uber-9\",\r\n        \"address\": \"spb9\",\r\n        \"latitude\": 22.169,\r\n        \"longitude\": 33.269,\r\n        \"isActive\": true\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}w/user/trade-points",
+							"host": [
+								"{{url}}w"
+							],
+							"path": [
+								"user",
+								"trade-points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckDeleteTradePoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "668d0d02-4449-4e54-9a84-229b49c2b67b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is ok, response is json\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 3000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Checking the correct deletion\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var id = Number(postman.getEnvironmentVariable(\"id\"));\r",
+									"    pm.expect(jsonData.id).eq(id);\r",
+									"    pm.expect(jsonData.name).eq(\"Uber-9\");\r",
+									"    pm.expect(jsonData.address).eq(\"spb9\");\r",
+									"    pm.expect(jsonData.latitude).eq(22.169);\r",
+									"    pm.expect(jsonData.longitude).eq(33.269);\r",
+									"    pm.expect(jsonData.isActive).eq(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "{{id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/w/user/trade-points/del",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"w",
+								"user",
+								"trade-points",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTEzMTM5LCJleHAiOjE1OTQ5MTY3MzksInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.3MvqDcVmBjjuRhnOKynKFKOI6KMLzncxZkWS-bXU19uYbVws5iajNJ-tkLUHD-Q0xb_eOi1hXAms34bf2JKjtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}m/trade-points/nearest?latitude=12&longitude=12",
+							"host": [
+								"{{url}}m"
+							],
+							"path": [
+								"trade-points",
+								"nearest"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "12"
+								},
+								{
+									"key": "longitude",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "longitude",
-							"value": "56.235142",
-							"type": "text"
-						},
-						{
-							"key": "latitude",
-							"value": "39.553861",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8000/m/pickPoint/nearest",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"m",
-						"pickPoint",
-						"nearest"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "CheckFields",
+			"name": "EditTradePointController",
+			"item": [
+				{
+					"name": "test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTA4Mzg4LCJleHAiOjE1OTQ5MTE5ODgsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.f2ijWitSiBrKX3ibGpeQXtn13UpCMkL2V2RlAfMfbRdS8Y5qmBdQ8JO9JX7ZDSwj_Mqux1sswHXsi7tEEicyIQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}w/user/trade-points/1",
+							"host": [
+								"{{url}}w"
+							],
+							"path": [
+								"user",
+								"trade-points",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "GetWebToken",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "3b12286a-9438-4746-9bab-65dbeb959bd4",
+						"id": "7d4fecbf-718e-439f-a522-f71b910c93cc",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Status is ok, response is json\", function () {\r",
-							"    pm.response.to.be.ok;\r",
-							"    pm.response.to.be.json;\r",
+							"pm.test(\"Response time is less than 3000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Check fields\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    for (var index = 0; index < jsonData.length; index++) {\r",
-							"        pm.expect(jsonData[index].tradePoint.id).not.eql(0);\r",
-							"        pm.expect(jsonData[index].tradePoint.address).not.eql(null);\r",
-							"        pm.expect(jsonData[index].tradePoint.latitude).to.be.below(180);\r",
-							"        pm.expect(jsonData[index].tradePoint.longitude).to.be.below(180);\r",
-							"        pm.expect(jsonData[index].time).to.be.above(0);\r",
-							"        pm.expect(jsonData[index].distance).to.be.above(0);\r",
-							"    }\r",
+							"pm.test(\"Get token for authorization\", function() {\r",
+							"    postman.setVariableEnvironment(\"token\", Headers.authorization);\r",
 							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json",
-						"disabled": true
-					}
-				],
+				"method": "POST",
+				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "longitude",
-							"value": "56.235142",
-							"type": "text"
-						},
-						{
-							"key": "latitude",
-							"value": "39.553861",
-							"type": "text"
-						}
-					],
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@admin.ru\",\r\n    \"password\": \"Administrator42\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -150,91 +350,65 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/m/pickPoint/nearest",
+					"raw": "http://ecse005008ef.epam.com:8080/api/auth/w/auth/login",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ecse005008ef",
+						"epam",
+						"com"
 					],
-					"port": "8000",
+					"port": "8080",
 					"path": [
-						"m",
-						"pickPoint",
-						"nearest"
+						"api",
+						"auth",
+						"w",
+						"auth",
+						"login"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "CheckFormat",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d4549b8b-cddc-4f3a-93b4-dd55fee3b4cd",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status is ok, response is json\", function () {\r",
-							"    pm.response.to.be.ok;\r",
-							"    pm.response.to.be.json;\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response data format is correct\", function () {\r",
-							"    var jsonData = pm.response.json()\r",
-							"    pm.expect(jsonData[0]).to.be.an('object')\r",
-							"    pm.expect(jsonData[0].tradePoint).to.be.an('object')\r",
-							"\r",
-							"    pm.expect(jsonData[0].tradePoint.id).to.be.an('number')\r",
-							"    pm.expect(jsonData[0].tradePoint.address).to.be.a('string')\r",
-							"    pm.expect(jsonData[0].tradePoint.latitude).to.be.a('number')\r",
-							"    pm.expect(jsonData[0].tradePoint.longitude).to.be.a('number')\r",
-							"\r",
-							"    pm.expect(jsonData[0].time).to.be.a('number')\r",
-							"    pm.expect(jsonData[0].distance).to.be.a('number')\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "GetMobileToken",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk0OTA4Mzg4LCJleHAiOjE1OTQ5MTE5ODgsInJvbGVzIjpbIlJPTEVfQURNSU4iXX0.f2ijWitSiBrKX3ibGpeQXtn13UpCMkL2V2RlAfMfbRdS8Y5qmBdQ8JO9JX7ZDSwj_Mqux1sswHXsi7tEEicyIQ",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
-							"key": "longitude",
-							"value": "56.235142",
+							"key": "latitude",
+							"value": "25.5555",
 							"type": "text"
 						},
 						{
-							"key": "latitude",
-							"value": "39.553861",
+							"key": "longitude",
+							"value": "25.5555",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8000/m/pickPoint/nearest",
-					"protocol": "http",
+					"raw": "{{url}}m/trade-points/nearest",
 					"host": [
-						"localhost"
+						"{{url}}m"
 					],
-					"port": "8000",
 					"path": [
-						"m",
-						"pickPoint",
+						"trade-points",
 						"nearest"
 					]
 				}
