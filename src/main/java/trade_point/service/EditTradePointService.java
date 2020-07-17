@@ -39,9 +39,9 @@ public class EditTradePointService {
 
         User user = userRepository.findByEmail(emailSeller);
 
-        if (!user.getRoles().contains(Role.ROLE_SELLER)) {
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
-        }
+//        if (!user.getRoles().contains(Role.ROLE_SELLER)) {
+//            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+//        }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
