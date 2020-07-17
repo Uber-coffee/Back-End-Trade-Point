@@ -1,5 +1,6 @@
 package trade_point.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class TradePoint {
     private Boolean isActive;
 
     @ManyToMany(mappedBy = "tradePoint", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     @Override
