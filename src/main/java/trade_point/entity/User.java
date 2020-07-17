@@ -1,6 +1,7 @@
 package trade_point.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -63,6 +64,7 @@ public class User {
             joinColumns = @JoinColumn(name = "User_id"),
             inverseJoinColumns = @JoinColumn(name = "TradePoint_id")
     )
+    @JsonIgnore
     private Set<TradePoint> tradePoint = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
