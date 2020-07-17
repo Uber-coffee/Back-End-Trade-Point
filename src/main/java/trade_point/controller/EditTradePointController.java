@@ -17,6 +17,8 @@ import trade_point.config.swagger2.SwaggerMethodToDocument;
 import trade_point.util.JsonJodaDateTimeSerializer;
 import trade_point.util.Views;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +42,9 @@ public class EditTradePointController {
     )
     @JsonSerialize(using = JsonJodaDateTimeSerializer.class)
     @JsonView(Views.Compact.class)
-    public ResponseEntity<Object> validateSeller(@RequestBody EditSellerRequest editSellerRequest,
+    public ResponseEntity<Object> validateSeller(@RequestParam @Email String emailSeller,
                                                  @PathVariable("idTradePoint") TradePoint tradePoint) {
-        return editTradePointService.validSeller(editSellerRequest, tradePoint);
+        return editTradePointService.validSeller(emailSeller, tradePoint);
     }
 
     @SwaggerMethodToDocument

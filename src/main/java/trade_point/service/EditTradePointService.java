@@ -32,12 +32,12 @@ public class EditTradePointService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<Object> validSeller(EditSellerRequest editSellerRequest, TradePoint tradePoint) {
-        if (!userRepository.existsByEmail(editSellerRequest.getEmail())) {
+    public ResponseEntity<Object> validSeller(String emailSeller, TradePoint tradePoint) {
+        if (!userRepository.existsByEmail(emailSeller)) {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
 
-        User user = userRepository.findByEmail(editSellerRequest.getEmail());
+        User user = userRepository.findByEmail(emailSeller);
 
         if (!user.getRoles().contains(Role.ROLE_SELLER)) {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
