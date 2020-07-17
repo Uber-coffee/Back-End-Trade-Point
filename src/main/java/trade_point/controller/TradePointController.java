@@ -52,7 +52,6 @@ public class TradePointController {
             value = "Get nearest pick point",
             authorizations = @Authorization(value="jwtToken")
     )
-    @JsonView(Views.Compact.class)
     public ResponseEntity<Object> getNearestPickPoint(@RequestParam Double latitude, @RequestParam Double longitude ) {
         if (latitude == null || longitude == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
